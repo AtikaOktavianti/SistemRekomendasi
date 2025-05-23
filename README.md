@@ -99,7 +99,7 @@ Pada tabel 3 Statistik rating menunjukkan bahwa dari total 25 juta data, **rata-
 
 |  |  |
 | ------ | ------ |
-| 356 | | 81491 |
+| 356 | 81491 |
 | 318 | 81482 |
 | 296 | 79672 |
 | 593 | 74127 |
