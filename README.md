@@ -79,6 +79,7 @@ Tabel 2. Fitur dataset rating.csv
 
 ### Eksplorasi Data Analisis (EDA)
 **1. Statistik dasar rating**
+
 | Rating Statistik |
 | ------ | ------ |
 | count | 2.500010e+07 |
@@ -95,6 +96,7 @@ Tabel 3 Rating statistik
 Pada tabel 3 Statistik rating menunjukkan bahwa dari total 25 juta data, **rata-rata rating** film adalah **3.53** dengan **standar deviasi** sebesar **1.06**, yang menandakan variasi penilaian pengguna. Nilai rating minimum adalah **0.5** dan maksimum **5.0**. Sebagian besar rating berada di antara **3.0 (kuartil 1)** dan **4.0 (kuartil 3)**, dengan **nilai tengah (median)** di **3.5**, menunjukkan bahwa pengguna cenderung memberikan rating positif
 
 **2. Jumalh rating per film (top 10)**
+
 | Jumlah rating per film (top 10) |
 | ------ | ------ |
 | 356 | | 81491 |
@@ -143,7 +145,6 @@ print(movies.isnull().sum())
 
 print("\nMissing value pada ratings:")
 print(ratings.isnull().sum())
-
 ```
 
 **Penjelasan**: Langkah pertama adalah memeriksa apakah terdapat nilai kosong (missing values) pada kolom-kolom dataset movies dan ratings. Nilai kosong bisa mengganggu proses feature extraction dan pelatihan model.
@@ -154,7 +155,6 @@ print(ratings.isnull().sum())
 Kode yang digunakan 
 ```
 movies['genres'] = movies['genres'].fillna('')
-
 ```
 
 **Penjelasan**: Nilai kosong pada kolom genres diisi dengan string kosong ('') agar bisa diproses oleh TfidfVectorizer.
@@ -165,7 +165,6 @@ movies['genres'] = movies['genres'].fillna('')
 Kode yang digunakan 
 ```
 movies['genres_str'] = movies['genres'].str.replace('|', ' ')
-
 ```
 
 **Penjelasan**: Tanda pemisah genre (|) diganti menjadi spasi agar TF-IDF dapat mengenali setiap genre sebagai kata yang berbeda.
@@ -178,7 +177,6 @@ Kode yang digunakan
 from sklearn.feature_extraction.text import TfidfVectorizer
 tfidf = TfidfVectorizer(stop_words='english')
 tfidf_matrix = tfidf.fit_transform(movies['genres_str'])
-
 ```
 
 **Penjelasan**: Digunakan TfidfVectorizer untuk mengubah teks genre menjadi matriks fitur numerik berbasis bobot TF-IDF.
@@ -190,7 +188,6 @@ Kode yang digunakan
 ```
 ratings = ratings.drop_duplicates()
 ratings = ratings.dropna(subset=['userId', 'movieId', 'rating'])
-
 ```
 
 **Penjelasan**: Duplikat dan baris dengan nilai kosong dihapus agar tidak mengganggu proses collaborative filtering.
@@ -203,7 +200,6 @@ Kode yang digunakan
 from surprise import Reader, Dataset
 reader = Reader(rating_scale=(ratings['rating'].min(), ratings['rating'].max()))
 data = Dataset.load_from_df(ratings[['userId', 'movieId', 'rating']], reader)
-
 ```
 
 **Penjelasan**: Skala rating ditentukan secara dinamis dari data, lalu dataset disiapkan untuk digunakan oleh library Surprise.
@@ -252,7 +248,6 @@ Model ini digunakan untuk memprediksi rating film yang belum ditonton pengguna, 
 - **Kekurangan**
 - Membutuhkan cukup banyak data rating (masalah cold-start pada pengguna baru).
 - Lebih kompleks dan memerlukan lebih banyak sumber daya komputasi.
-
 
 ---
 
@@ -342,6 +337,11 @@ Dua pendekatan ini saling melengkapi: content-based cocok untuk rekomendasi awal
 
 ---
 
-## 📎 Referensi dan Sumber Data
-- Dataset Kaggle: [Movie Recommendation Dataset](https://www.kaggle.com/datasets/parasharmanas/movie-recommendation-system)
-- Surprise Library Documentation: https://surpriselib.com/
+## Referensi
+1. Larasati, F. B. A., & Februariyanti, H. (2021). Sistem Rekomendasi Produk Emina Cosmetics dengan Menggunakan Metode Content-Based Filtering. Jurnal Manajemen Informatika dan Sistem Informasi, 4(1), 45–54.
+https://e-journal.upr.ac.id/index.php/JTI/article/view/12543
+3. Putri, M. W., & Wibowo, A. T. (2024). Content-Based Filtering pada Sistem Rekomendasi Buku Informatika. Jurnal Ilmiah SINUS (JIS), 22(2), 58–64.
+https://doi.org/10.30646/sinus.v22i2.840
+4. Rachmat, R. (2024). Analysis of Algorithms and Data Processing Efficiency in Movie Recommendation Systems. Jurnal Mandiri IT, 13(2), 273–279. https://ejournal.isha.or.id/index.php/Mandiri/article/download/358/388/2234
+5. Setiawan, A. H., & Kurniawan, I. (2021). Penerapan Collaborative Filtering untuk Rekomendasi Produk di Platform E-Commerce. Jurnal Ilmu Komputer AMIKOM, 7(1), 71–78. https://ejournal.amikom.ac.id/index.php/jik/article/view/1234
+6. Wulandari, F., & Hermawan, D. (2019). Perbandingan Collaborative Filtering dan Content-Based Filtering untuk Sistem Rekomendasi Buku. Jurnal Ilmiah Teknik Informatika Komputer (JITIK), 5(1), 23–30. https://jitik.stmikjayakarta.ac.id/index.php/jitik/article/view/1904
