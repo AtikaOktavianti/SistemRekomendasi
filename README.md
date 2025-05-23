@@ -80,6 +80,7 @@ Tabel 2. Fitur dataset rating.csv
 ### Eksplorasi Data Analisis (EDA)
 **1. Statistik dasar rating**
 
+|  |  |
 | ------ | ------ |
 | count | 2.500010e+07 |
 | mean | 3.533854e+00 |
