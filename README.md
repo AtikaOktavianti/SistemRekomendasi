@@ -216,6 +216,7 @@ data = Dataset.load_from_df(ratings[['userId', 'movieId', 'rating']], reader)
 Sistem rekomendasi ini bertujuan untuk membantu pengguna dalam menemukan film yang relevan dengan preferensi mereka berdasarkan dua pendekatan utama: Content-Based Filtering dan Collaborative Filtering. Masalah yang dipecahkan adalah membantu pengguna memilih film dari jumlah pilihan yang sangat besar, dengan menyajikan rekomendasi yang relevan dan dipersonalisasi.
 
 **1. Content-Based Filtering**
+
 **Modelling**
 
 Pendekatan ini memanfaatkan informasi konten dari film, khususnya kolom genre. Prosesnya meliputi:
@@ -236,6 +237,7 @@ Sebagai contoh, jika pengguna memilih film tertentu, sistem akan merekomendasika
 - Tidak mempertimbangkan opini atau preferensi pengguna lain.
 
 **2. Collaborative Filtering (SVD - Singular Value Decomposition)**
+
 **Modelling**
 
 Menggunakan pendekatan Matrix Factorization dengan algoritma SVD dari library Surprise. Langkah-langkah:
@@ -267,9 +269,9 @@ Evaluasi dilakukan secara **kualitatif** dengan menggunakan **Cosine Similarity*
 #### Penjelasan Metrik
 **Cosine Similarity** menghitung tingkat kemiripan antara dua vektor (dalam hal ini representasi TF-IDF dari genre film) dengan rumus:
 
-\[
+$$
 \text{Cosine Similarity} = \frac{A \cdot B}{\|A\|\|B\|}
-\]
+$$
 
 Nilainya berkisar antara 0 (tidak mirip) hingga 1 (sangat mirip). Film dengan nilai cosine similarity tertinggi terhadap film pilihan pengguna akan direkomendasikan.
 
