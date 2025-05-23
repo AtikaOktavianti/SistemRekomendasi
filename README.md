@@ -217,43 +217,35 @@ Sistem rekomendasi ini bertujuan untuk membantu pengguna dalam menemukan film ya
 
 **1. Content-Based Filtering**
 
-**Modelling**
-
-Pendekatan ini memanfaatkan informasi konten dari film, khususnya kolom genre. Prosesnya meliputi:
+**Modelling**: Pendekatan ini memanfaatkan informasi konten dari film, khususnya kolom genre. Prosesnya meliputi:
 - Ekstraksi fitur teks menggunakan TF-IDF Vectorizer.
 - Perhitungan kesamaan antar film menggunakan Cosine Similarity.
 - Pemberian rekomendasi berdasarkan film yang mirip dengan input pengguna.
 
-**Top-N Recommendation**
+**Top-N Recommendation**: Sebagai contoh, jika pengguna memilih film tertentu, sistem akan merekomendasikan 10 film teratas yang paling mirip berdasarkan genre-nya
 
-Sebagai contoh, jika pengguna memilih film tertentu, sistem akan merekomendasikan 10 film teratas yang paling mirip berdasarkan genre-nya
-
-**Kelebihan**
+**Kelebihan**:
 - Tidak memerlukan data dari pengguna lain, cukup metadata dari item.
 - Dapat memberikan rekomendasi untuk item yang belum pernah di-rating (cold-start item).
 
-**Kekurangan**
+**Kekurangan**:
 - Cenderung sempit, hanya merekomendasikan item yang serupa (kurang beragam).
 - Tidak mempertimbangkan opini atau preferensi pengguna lain.
 
 **2. Collaborative Filtering (SVD - Singular Value Decomposition)**
 
-**Modelling**
-
-Menggunakan pendekatan Matrix Factorization dengan algoritma SVD dari library Surprise. Langkah-langkah:
+**Modelling**: Menggunakan pendekatan Matrix Factorization dengan algoritma SVD dari library Surprise. Langkah-langkah:
 - Data rating pengguna diformat menggunakan Reader dan Dataset dari Surprise.
 - Model dilatih menggunakan SVD.
 - Evaluasi menggunakan cross-validation dengan metrik RMSE dan MAE.
 
-**Top-N Recommendation**
+**Top-N Recommendation**: Model ini digunakan untuk memprediksi rating film yang belum ditonton pengguna, dan menyarankan 10 film teratas dengan prediksi rating tertinggi.
 
-Model ini digunakan untuk memprediksi rating film yang belum ditonton pengguna, dan menyarankan 10 film teratas dengan prediksi rating tertinggi.
-
-- **Kelebihan**
+**Kelebihan**: 
 - Mempertimbangkan pola rating dari banyak pengguna.
 - Dapat menemukan keterkaitan yang tidak tampak langsung dalam metadata film.
 
-- **Kekurangan**
+**Kekurangan**:
 - Membutuhkan cukup banyak data rating (masalah cold-start pada pengguna baru).
 - Lebih kompleks dan memerlukan lebih banyak sumber daya komputasi.
 
@@ -305,14 +297,14 @@ Keduanya digunakan untuk mengukur seberapa dekat prediksi model terhadap rating 
 #### Penjelasan Metrik
 
 - **RMSE**:
-\[
+$$
 \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2}
-\]
+$$
 
 - **MAE**:
-\[
+$$
 \text{MAE} = \frac{1}{n} \sum_{i=1}^n |y_i - \hat{y}_i|
-\]
+$$
 
 RMSE lebih sensitif terhadap error besar, sedangkan MAE memberikan estimasi rata-rata kesalahan model.
 
@@ -348,8 +340,8 @@ Dua pendekatan ini saling melengkapi: content-based cocok untuk rekomendasi awal
 ## Referensi
 1. Larasati, F. B. A., & Februariyanti, H. (2021). Sistem Rekomendasi Produk Emina Cosmetics dengan Menggunakan Metode Content-Based Filtering. Jurnal Manajemen Informatika dan Sistem Informasi, 4(1), 45–54.
 https://e-journal.upr.ac.id/index.php/JTI/article/view/12543
-3. Putri, M. W., & Wibowo, A. T. (2024). Content-Based Filtering pada Sistem Rekomendasi Buku Informatika. Jurnal Ilmiah SINUS (JIS), 22(2), 58–64.
+2. Putri, M. W., & Wibowo, A. T. (2024). Content-Based Filtering pada Sistem Rekomendasi Buku Informatika. Jurnal Ilmiah SINUS (JIS), 22(2), 58–64.
 https://doi.org/10.30646/sinus.v22i2.840
-4. Rachmat, R. (2024). Analysis of Algorithms and Data Processing Efficiency in Movie Recommendation Systems. Jurnal Mandiri IT, 13(2), 273–279. https://ejournal.isha.or.id/index.php/Mandiri/article/download/358/388/2234
-5. Setiawan, A. H., & Kurniawan, I. (2021). Penerapan Collaborative Filtering untuk Rekomendasi Produk di Platform E-Commerce. Jurnal Ilmu Komputer AMIKOM, 7(1), 71–78. https://ejournal.amikom.ac.id/index.php/jik/article/view/1234
-6. Wulandari, F., & Hermawan, D. (2019). Perbandingan Collaborative Filtering dan Content-Based Filtering untuk Sistem Rekomendasi Buku. Jurnal Ilmiah Teknik Informatika Komputer (JITIK), 5(1), 23–30. https://jitik.stmikjayakarta.ac.id/index.php/jitik/article/view/1904
+3. Rachmat, R. (2024). Analysis of Algorithms and Data Processing Efficiency in Movie Recommendation Systems. Jurnal Mandiri IT, 13(2), 273–279. https://ejournal.isha.or.id/index.php/Mandiri/article/download/358/388/2234
+4. Setiawan, A. H., & Kurniawan, I. (2021). Penerapan Collaborative Filtering untuk Rekomendasi Produk di Platform E-Commerce. Jurnal Ilmu Komputer AMIKOM, 7(1), 71–78. https://ejournal.amikom.ac.id/index.php/jik/article/view/1234
+5. Wulandari, F., & Hermawan, D. (2019). Perbandingan Collaborative Filtering dan Content-Based Filtering untuk Sistem Rekomendasi Buku. Jurnal Ilmiah Teknik Informatika Komputer (JITIK), 5(1), 23–30. https://jitik.stmikjayakarta.ac.id/index.php/jitik/article/view/1904
