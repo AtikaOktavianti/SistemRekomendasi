@@ -55,6 +55,7 @@ Dataset terdiri dari dua file utama:
 1. `movies.csv`: berisi informasi tentang film.
 - Jumlah baris: 62,432
 - Jumlah kolom: 3
+  
 | Fitur | Deskripsi |
 | ------ | ------ |
 | MovieId | ID unik untuk setiap film |
@@ -66,6 +67,7 @@ Tabel 1. Fitur dataset movie.csv
 2. `ratings.csv`: berisi rating dari pengguna terhadap film.
 - Jumlah baris: 25,000,095
 - Jumlah kolom: 4
+  
 | Fitur | Deskripsi |
 | ------ | ------ |
 | userId | ID unik pengguna yang memberikan rating |
