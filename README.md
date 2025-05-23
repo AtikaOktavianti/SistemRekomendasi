@@ -135,6 +135,8 @@ Gambar 4 Distribusi Genre Film
 
 Gambar 4, menunjukkan **distribusi jumlah film berdasarkan genre**. Genre **Drama** merupakan yang paling banyak, dengan lebih dari **25.000 film**, diikuti oleh **Comedy**, **Thriller**, dan **Romance**. Genre dengan jumlah film paling sedikit adalah **IMAX**, **Film-Noir**, dan **Musical**. Ini menunjukkan bahwa film bergenre drama dan komedi paling dominan dalam dataset, sedangkan genre-genre tertentu bersifat lebih niche atau jarang diproduksi.
 
+---
+
 ## 4. Data Preparation
 Pada tahap ini, dilakukan beberapa teknik data preparation untuk mempersiapkan dataset sebelum digunakan dalam model sistem rekomendasi. Teknik-teknik tersebut dilakukan secara berurutan sebagai berikut:
 ### 1. Pengecekan dan Penananan Missing Value
@@ -214,31 +216,35 @@ data = Dataset.load_from_df(ratings[['userId', 'movieId', 'rating']], reader)
 Sistem rekomendasi ini bertujuan untuk membantu pengguna dalam menemukan film yang relevan dengan preferensi mereka berdasarkan dua pendekatan utama: Content-Based Filtering dan Collaborative Filtering. Masalah yang dipecahkan adalah membantu pengguna memilih film dari jumlah pilihan yang sangat besar, dengan menyajikan rekomendasi yang relevan dan dipersonalisasi.
 
 **1. Content-Based Filtering**
-- **Modelling**
+**Modelling**
+
 Pendekatan ini memanfaatkan informasi konten dari film, khususnya kolom genre. Prosesnya meliputi:
 - Ekstraksi fitur teks menggunakan TF-IDF Vectorizer.
 - Perhitungan kesamaan antar film menggunakan Cosine Similarity.
 - Pemberian rekomendasi berdasarkan film yang mirip dengan input pengguna.
 
-- **Top-N Recommendation**
+**Top-N Recommendation**
+
 Sebagai contoh, jika pengguna memilih film tertentu, sistem akan merekomendasikan 10 film teratas yang paling mirip berdasarkan genre-nya
 
-- **Kelebihan**
+**Kelebihan**
 - Tidak memerlukan data dari pengguna lain, cukup metadata dari item.
 - Dapat memberikan rekomendasi untuk item yang belum pernah di-rating (cold-start item).
 
-- **Kekurangan**
+**Kekurangan**
 - Cenderung sempit, hanya merekomendasikan item yang serupa (kurang beragam).
 - Tidak mempertimbangkan opini atau preferensi pengguna lain.
 
 **2. Collaborative Filtering (SVD - Singular Value Decomposition)**
-- **Modelling**
+**Modelling**
+
 Menggunakan pendekatan Matrix Factorization dengan algoritma SVD dari library Surprise. Langkah-langkah:
 - Data rating pengguna diformat menggunakan Reader dan Dataset dari Surprise.
 - Model dilatih menggunakan SVD.
 - Evaluasi menggunakan cross-validation dengan metrik RMSE dan MAE.
 
-- **Top-N Recommendation**
+**Top-N Recommendation**
+
 Model ini digunakan untuk memprediksi rating film yang belum ditonton pengguna, dan menyarankan 10 film teratas dengan prediksi rating tertinggi.
 
 - **Kelebihan**
