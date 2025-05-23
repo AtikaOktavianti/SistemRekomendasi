@@ -97,7 +97,7 @@ Pada tabel 3 Statistik rating menunjukkan bahwa dari total 25 juta data, **rata-
 
 **2. Jumalh rating per film (top 10)**
 
-| Jumlah rating per film (top 10) |
+|  |  |
 | ------ | ------ |
 | 356 | | 81491 |
 | 318 | 81482 |
