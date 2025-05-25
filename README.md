@@ -249,7 +249,50 @@ Nilai ini menunjukkan bahwa model cukup akurat dalam memprediksi rating pengguna
 - Mendukung strategi personalisasi rekomendasi.
 
 ---
+## Hubungan Model dengan Business Understanding
 
+### 1. Apakah sudah menjawab setiap problem statement?
+
+**Problem Statement 1:** _Bagaimana cara merekomendasikan film yang relevan bagi pengguna?_  
+**Terjawab:**  
+Model content-based dan collaborative filtering dibangun untuk menghasilkan rekomendasi film yang relevan berdasarkan kesamaan konten dan perilaku pengguna.
+
+**Problem Statement 2:** _Bagaimana memanfaatkan data rating dan informasi konten film untuk menyusun sistem rekomendasi yang efektif?_  
+**Terjawab:**  
+- **Content-Based Filtering** menggunakan TF-IDF pada data genre film.  
+- **Collaborative Filtering** menggunakan data rating dengan algoritma SVD.
+
+### 2. Apakah berhasil mencapai setiap goals yang diharapkan?
+
+**Goal 1:** _Membangun dua sistem rekomendasi: content-based dan collaborative._  
+**Tercapai.** Kedua pendekatan berhasil diimplementasikan.
+
+**Goal 2:** _Menyajikan rekomendasi film yang sesuai preferensi pengguna._  
+**Tercapai.** Rekomendasi dihasilkan untuk film dan pengguna spesifik.
+
+**Goal 3:** _Mengevaluasi performa sistem dengan metrik yang sesuai._  
+**Tercapai.**  
+- **Content-Based:** Precision@5 = 0.60  
+- **Collaborative Filtering:** RMSE = 0.7812, MAE = 0.5894
+
+### 3. Apakah setiap solusi statement yang kamu rencanakan berdampak?
+
+Ya, kedua pendekatan memberikan dampak nyata terhadap tujuan bisnis:
+
+#### Content-Based Filtering
+- **Dampak:** Dapat memberikan rekomendasi untuk film baru (cold-start item).
+- **Manfaat bisnis:** Menjaga ketertarikan pengguna baru melalui rekomendasi yang relevan.
+
+#### Collaborative Filtering
+- **Dampak:** Memberikan rekomendasi personal berdasarkan preferensi pengguna lain.
+- **Manfaat bisnis:** Meningkatkan pengalaman pengguna jangka panjang dan loyalitas.
+
+## Kesimpulan
+
+Model yang dibangun sangat relevan terhadap _business understanding_ proyek ini:
+- Semua **problem statement** dijawab.
+- **Tujuan bisnis** tercapai dan divalidasi secara metrik.
+- **Solusi yang diimplementasikan berdampak nyata** pada peningkatan kepuasan pengguna.
 
 ---
 
