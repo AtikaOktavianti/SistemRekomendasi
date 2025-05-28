@@ -138,52 +138,57 @@ data = Dataset.load_from_df(ratings[['userId', 'movieId', 'rating']], reader)
 - Memuat data ke dalam format Dataset Surprise untuk digunakan pada algoritma collaborative filtering (SVD).
 - Melakukan validasi silang menggunakan cross_validate untuk mengukur performa model.
 
+### 6. Split Data
+Kode yang digunakan 
+```
+from surprise.model_selection import train_test_split
+# Membagi dataset menjadi train dan test set
+trainset, testset = train_test_split(data, test_size=0.25, random_state=42)
+```
+
+**Penjelasan**: Split data atau membagi dataset menjadi dua bagian, yaitu data pelatihan (trainset) dan data pengujian (testset), di mana 75% data digunakan untuk melatih model dan 25% sisanya untuk menguji performa model. Pembagian data dilakukan secara acak namun konsisten menggunakan random_state=42 agar hasilnya dapat direproduksi.
+
 
 ## 5. Modeling and Result
 
-### Pendekatan dan Permasalahan
-Model sistem rekomendasi dikembangkan dengan dua pendekatan utama, yaitu Content-Based Filtering dan Collaborative Filtering. Masing-masing pendekatan menggunakan teknik yang berbeda untuk menghasilkan rekomendasi film yang relevan bagi pengguna.
+### Pendekatan Sistem Rekomendasi
+Dalam proyek ini, digunakan dua pendekatan utama untuk membangun sistem rekomendasi film, yaitu Content-Based Filtering dan Collaborative Filtering. Masing-masing pendekatan memiliki karakteristik dan metode kerja yang berbeda.
 
 **1. Content-Based Filtering**
 
-**definisi dan Cara Kerja**: Content-Based Filtering merekomendasikan produk berdasarkan kemiripan konten antar item. Dalam implementasi ini:
-- Deskripsi produk diubah menjadi vektor fitur menggunakan teknik **TF-IDF (Term Frequency-Inverse Document Frequency)**.
-- Kemudian, dihitung **cosine similarity** antar vektor produk.
-- Produk-produk yang paling mirip dengan produk yang telah disukai oleh pengguna akan direkomendasikan kembali.
+**definisi**: Content-Based Filtering adalah pendekatan sistem rekomendasi yang menyarankan item berdasarkan kesamaan konten antar item. Sistem ini fokus pada fitur atau deskripsi item itu sendiri, bukan interaksi pengguna lain.
 
-**Top-N Recommendation**: 
-![alt text](https://github.com/AtikaOktavianti/-Predictive-Analytics/blob/main/cbf-10.png?raw=true)
+**Cara Kerja**:
+- Informasi dari film (seperti genre) diolah menjadi representasi vektor menggunakan TF-IDF (Term Frequency-Inverse Document Frequency).
+- Kemudian dihitung kemiripan antar film menggunakan metrik cosine similarity.
+- Film yang memiliki nilai kemiripan tinggi dengan film yang pernah disukai oleh pengguna akan direkomendasikan.
 
-**Penjelasan**: 
-
-Gambar tersebut menunjukkan daftar 10 film yang direkomendasikan berdasarkan kemiripan konten dengan film "Toy Story (1995)". Rekomendasi ini dihitung menggunakan cosine similarity pada fitur TF-IDF dari deskripsi film, sehingga film-film yang muncul memiliki konten atau tema yang mirip dengan "Toy Story (1995)". Film-film tersebut diurutkan dari yang paling mirip hingga yang kurang mirip dalam 10 teratas.
+**Cara Kerja Cosine Similarity**: Cosine similarity digunakan untuk mengukur tingkat kemiripan antara dua vektor dengan membandingkan sudut di antara keduanya. Semakin kecil sudut, semakin besar kemiripannya. Nilai cosine similarity berkisar antara 0 (tidak mirip) hingga 1 (sangat mirip).
 
 **Kelebihan**:
-- Tidak memerlukan data dari pengguna lain, cukup metadata dari item.
-- Dapat memberikan rekomendasi untuk item yang belum pernah di-rating (cold-start item).
+- Dapat merekomendasikan item meskipun belum pernah dirating (cold-start item).
+- Tidak bergantung pada data dari pengguna lain.
 
 **Kekurangan**:
-- Cenderung sempit, hanya merekomendasikan item yang serupa (kurang beragam).
-- Tidak mempertimbangkan opini atau preferensi pengguna lain.
+- Cenderung hanya merekomendasikan item yang sangat mirip (kurang beragam).
+- Tidak mempertimbangkan preferensi kolektif pengguna lain.
 
 **2. Collaborative Filtering (SVD - Singular Value Decomposition)**
 
-**Definisi dan Cara Kerja**: Collaborative Filtering merekomendasikan produk berdasarkan perilaku pengguna lain yang memiliki pola mirip. Pada notebook ini digunakan:
-- Algoritma **Singular Value Decomposition (SVD)** dari pustaka `Surprise`.
-- SVD mengurangi dimensi data interaksi pengguna-produk dan memperkirakan rating yang tidak diketahui.
+**Definisi**: Collaborative Filtering memberikan rekomendasi berdasarkan pola interaksi pengguna. Sistem ini mengasumsikan bahwa jika dua pengguna memiliki preferensi yang mirip di masa lalu, maka mereka cenderung menyukai item yang sama di masa depan.
 
-**Top-N Recommendation**: Berikut adalah contoh hasil Top-10 rekomendasi produk untuk pengguna
-![alt text](https://github.com/AtikaOktavianti/-Predictive-Analytics/blob/main/userid1.png?raw=true)
-
-**Penjelasan**: Pada gambar tersebut merupakan hasil dari sistem rekomendasi berbasis Collaborative Filtering menggunakan algoritma SVD. Sistem merekomendasikan 10 film terbaik untuk pengguna dengan `userId=1` berdasarkan pola rating pengguna tersebut dan kesamaan preferensi dengan pengguna lain. Film-film yang ditampilkan adalah yang diprediksi akan paling disukai oleh pengguna karena memiliki prediksi rating tertinggi dari model.
+**Cara Kerja**:
+- Dibuat matriks user-item berdasarkan rating yang diberikan.
+- Matriks ini kemudian didekomposisi menggunakan algoritma SVD (Singular Value Decomposition).
+- SVD menemukan struktur laten (faktor tersembunyi) yang mewakili hubungan pengguna dan item, lalu digunakan untuk memprediksi rating yang belum diberikan.
 
 **Kelebihan**: 
-- Mempertimbangkan pola rating dari banyak pengguna.
-- Dapat menemukan keterkaitan yang tidak tampak langsung dalam metadata film.
+- Memanfaatkan pola preferensi pengguna secara kolektif.
+- Mampu menemukan rekomendasi yang tidak terlihat hanya dari metadata item.
 
 **Kekurangan**:
-- Membutuhkan cukup banyak data rating (masalah cold-start pada pengguna baru).
-- Lebih kompleks dan memerlukan lebih banyak sumber daya komputasi.
+- Tidak cocok untuk pengguna baru tanpa histori (cold-start user).
+- Memerlukan data rating dalam jumlah besar dan sumber daya komputasi lebih tinggi.
 
 ---
 
