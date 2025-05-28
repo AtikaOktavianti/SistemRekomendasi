@@ -148,6 +148,8 @@ trainset, testset = train_test_split(data, test_size=0.25, random_state=42)
 
 **Penjelasan**: Split data atau membagi dataset menjadi dua bagian, yaitu data pelatihan (trainset) dan data pengujian (testset), di mana 75% data digunakan untuk melatih model dan 25% sisanya untuk menguji performa model. Pembagian data dilakukan secara acak namun konsisten menggunakan random_state=42 agar hasilnya dapat direproduksi.
 
+---
+
 ## 5. Modeling and Result
 
 ### Pendekatan Sistem Rekomendasi
